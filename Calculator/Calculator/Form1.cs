@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -63,20 +63,28 @@ namespace Calculator
                 if (clickControlCounter > 0)
                 {
                     double secondnumdouble = Convert.ToDouble(label2.Text);
-                    switch (tempProcess)
+                    if (tempProcess == '+')
                     {
-                        case '+':
-                            conclusion = firstnumdouble + secondnumdouble;
-                            break;
-                        case '-':
-                            conclusion = firstnumdouble - secondnumdouble;
-                            break;
-                        case '/':
+                        conclusion = firstnumdouble + secondnumdouble;
+                    }
+                    else if (tempProcess == '-')
+                    {
+                        conclusion = firstnumdouble - secondnumdouble;
+                    }
+                    else if (tempProcess == '/')
+                    {
+                        if (secondnumdouble == 0)
+                        {
+                            label2.Text = "Cannot divide by zero";
+                        }
+                        else
+                        {
                             conclusion = firstnumdouble / secondnumdouble;
-                            break;
-                        case '*':
-                            conclusion = firstnumdouble * secondnumdouble;
-                            break;
+                        }
+                    }
+                    else if (tempProcess == '*')
+                    {
+                        conclusion = firstnumdouble * secondnumdouble;
                     }
                     label2.Text = " " + conclusion;
                     screenclear = true;
@@ -171,50 +179,66 @@ namespace Calculator
             if (equalsControlCounter == true)
             {                
                 equalsControl = true;
-                double secondnumdouble = Convert.ToDouble(label2.Text);                
-                switch (tempProcess)
+                double secondnumdouble = Convert.ToDouble(label2.Text);
+                if (tempProcess == '+')
                 {
-                    case '+':
-                        conclusion = tempFirstNumDouble + secondnumdouble;
-                        label2.Text = " " + conclusion;
-                        break;
-                    case '-':
-                        conclusion = tempFirstNumDouble - secondnumdouble;
-                        label2.Text = " " + conclusion;
-                        break;
-                    case '/':
-                        conclusion = tempFirstNumDouble / secondnumdouble;
-                        label2.Text = " " + conclusion;
-                        break;
-                    case '*':
-                        conclusion = tempFirstNumDouble * secondnumdouble;
-                        label2.Text = " " + conclusion;
-                        break;
+                    conclusion = firstnumdouble + secondnumdouble;
                 }
+                else if (tempProcess == '-')
+                {
+                    conclusion = firstnumdouble - secondnumdouble;
+                }
+                else if (tempProcess == '/')
+                {
+                    if (secondnumdouble == 0)
+                    {
+                        label2.Text = "Cannot divide by zero";
+                    }
+                    else
+                    {
+                        conclusion = firstnumdouble / secondnumdouble;
+                    }
+                }
+                else if (tempProcess == '*')
+                {
+                    conclusion = firstnumdouble * secondnumdouble;
+                }
+                label2.Text = " " + conclusion;
+                screenclear = true;
+                firstnumdouble = conclusion;
+                equalsControlCounter = false;
             }
+            //tempFirstNumDouble = secondnumdouble;
             else
             {
                 equalsControl = true;
                 double secondnumdouble = Convert.ToDouble(label2.Text);
                 tempFirstNumDouble = secondnumdouble;
-                switch (tempProcess)
+                if (tempProcess == '+')
                 {
-                    case '+':
-                        conclusion = firstnumdouble + secondnumdouble;
-                        label2.Text = " " + conclusion;
-                        break;
-                    case '-':
-                        conclusion = firstnumdouble - secondnumdouble;
-                        label2.Text = " " + conclusion;
-                        break;
-                    case '/':
+                    conclusion = firstnumdouble + secondnumdouble;
+                }
+                else if (tempProcess == '-')
+                {
+                    conclusion = firstnumdouble - secondnumdouble;
+                }
+                else if (tempProcess == '/')
+                {
+                    if (secondnumdouble == 0)
+                    {
+                        label2.Text = "Cannot divide by zero";
+                        clickControlCounter = 0;
+                        equalsControlCounter = false;
+
+                    }
+                    else
+                    {
                         conclusion = firstnumdouble / secondnumdouble;
-                        label2.Text = " " + conclusion;
-                        break;
-                    case '*':
-                        conclusion = firstnumdouble * secondnumdouble;
-                        label2.Text = " " + conclusion;
-                        break;
+                    }
+                }
+                else if (tempProcess == '*')
+                {
+                    conclusion = firstnumdouble * secondnumdouble;
                 }
                 screenclear = true;
                 equalsControlCounter = true;
