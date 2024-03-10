@@ -53,7 +53,6 @@ namespace Calculator
         {
             if (equalsControl==true)
             {
-
                 firstnumdouble = Convert.ToDouble(label2.Text);
                 equalsControl = false;
                 equalsControlCounter = false;
@@ -76,6 +75,8 @@ namespace Calculator
                         if (secondnumdouble == 0)
                         {
                             label2.Text = "Cannot divide by zero";
+                            clickControlCounter = 0;
+                            equalsControlCounter = false;
                         }
                         else
                         {
@@ -197,6 +198,8 @@ namespace Calculator
                     else
                     {
                         conclusion = firstnumdouble / secondnumdouble;
+                        clickControlCounter = 0;
+                        equalsControlCounter = false;
                     }
                 }
                 else if (tempProcess == '*')
@@ -208,7 +211,6 @@ namespace Calculator
                 firstnumdouble = conclusion;
                 equalsControlCounter = false;
             }
-            //tempFirstNumDouble = secondnumdouble;
             else
             {
                 equalsControl = true;
