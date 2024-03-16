@@ -13,7 +13,7 @@ namespace Calculator
     public partial class Form1 : Form
     {
         char process, tempProcess;
-        bool screenclear, equalsControl, numControl = false, equalsControlCounter=false;
+        bool screenclear, equalsControl, numControl = false, equalsControlCounter=false,dotControl=false;
         int clickControlCounter = 0;
         double firstnumdouble, conclusion, tempFirstNumDouble;
         void screenClearMetot()
@@ -30,6 +30,7 @@ namespace Calculator
             label2.Text += "" + num;
             numControl = true;
             equalsControlCounter = false;
+            dotControl = true;
         }
         void processButtonControl(char processSelection)
         {
@@ -53,6 +54,7 @@ namespace Calculator
         {
             if (equalsControl==true)
             {
+
                 firstnumdouble = Convert.ToDouble(label2.Text);
                 equalsControl = false;
                 equalsControlCounter = false;
@@ -62,30 +64,20 @@ namespace Calculator
                 if (clickControlCounter > 0)
                 {
                     double secondnumdouble = Convert.ToDouble(label2.Text);
-                    if (tempProcess == '+')
+                    switch (tempProcess)
                     {
-                        conclusion = firstnumdouble + secondnumdouble;
-                    }
-                    else if (tempProcess == '-')
-                    {
-                        conclusion = firstnumdouble - secondnumdouble;
-                    }
-                    else if (tempProcess == '/')
-                    {
-                        if (secondnumdouble == 0)
-                        {
-                            label2.Text = "Cannot divide by zero";
-                            clickControlCounter = 0;
-                            equalsControlCounter = false;
-                        }
-                        else
-                        {
+                        case '+':
+                            conclusion = firstnumdouble + secondnumdouble;
+                            break;
+                        case '-':
+                            conclusion = firstnumdouble - secondnumdouble;
+                            break;
+                        case '/':
                             conclusion = firstnumdouble / secondnumdouble;
-                        }
-                    }
-                    else if (tempProcess == '*')
-                    {
-                        conclusion = firstnumdouble * secondnumdouble;
+                            break;
+                        case '*':
+                            conclusion = firstnumdouble * secondnumdouble;
+                            break;
                     }
                     label2.Text = " " + conclusion;
                     screenclear = true;
@@ -155,8 +147,14 @@ namespace Calculator
         }
         private void button22_Click(object sender, EventArgs e)
         {
-            label2.Text += ".";
-            equalsControlCounter = false;
+            if (dotControl==true)
+            {
+                if (!label2.Text.Contains("."))
+                {
+                    label2.Text += ".";
+                    equalsControlCounter = false;
+                }
+            }          
         }
         
         private void button17_Click(object sender, EventArgs e)
@@ -180,67 +178,50 @@ namespace Calculator
             if (equalsControlCounter == true)
             {                
                 equalsControl = true;
-                double secondnumdouble = Convert.ToDouble(label2.Text);
-                if (tempProcess == '+')
+                double secondnumdouble = Convert.ToDouble(label2.Text);                
+                switch (tempProcess)
                 {
-                    conclusion = firstnumdouble + secondnumdouble;
+                    case '+':
+                        conclusion = tempFirstNumDouble + secondnumdouble;
+                        label2.Text = " " + conclusion;
+                        break;
+                    case '-':
+                        conclusion = tempFirstNumDouble - secondnumdouble;
+                        label2.Text = " " + conclusion;
+                        break;
+                    case '/':
+                        conclusion = tempFirstNumDouble / secondnumdouble;
+                        label2.Text = " " + conclusion;
+                        break;
+                    case '*':
+                        conclusion = tempFirstNumDouble * secondnumdouble;
+                        label2.Text = " " + conclusion;
+                        break;
                 }
-                else if (tempProcess == '-')
-                {
-                    conclusion = firstnumdouble - secondnumdouble;
-                }
-                else if (tempProcess == '/')
-                {
-                    if (secondnumdouble == 0)
-                    {
-                        label2.Text = "Cannot divide by zero";
-                    }
-                    else
-                    {
-                        conclusion = firstnumdouble / secondnumdouble;
-                        clickControlCounter = 0;
-                        equalsControlCounter = false;
-                    }
-                }
-                else if (tempProcess == '*')
-                {
-                    conclusion = firstnumdouble * secondnumdouble;
-                }
-                label2.Text = " " + conclusion;
-                screenclear = true;
-                firstnumdouble = conclusion;
-                equalsControlCounter = false;
             }
             else
             {
                 equalsControl = true;
                 double secondnumdouble = Convert.ToDouble(label2.Text);
                 tempFirstNumDouble = secondnumdouble;
-                if (tempProcess == '+')
+                switch (tempProcess)
                 {
-                    conclusion = firstnumdouble + secondnumdouble;
-                }
-                else if (tempProcess == '-')
-                {
-                    conclusion = firstnumdouble - secondnumdouble;
-                }
-                else if (tempProcess == '/')
-                {
-                    if (secondnumdouble == 0)
-                    {
-                        label2.Text = "Cannot divide by zero";
-                        clickControlCounter = 0;
-                        equalsControlCounter = false;
-
-                    }
-                    else
-                    {
+                    case '+':
+                        conclusion = firstnumdouble + secondnumdouble;
+                        label2.Text = " " + conclusion;
+                        break;
+                    case '-':
+                        conclusion = firstnumdouble - secondnumdouble;
+                        label2.Text = " " + conclusion;
+                        break;
+                    case '/':
                         conclusion = firstnumdouble / secondnumdouble;
-                    }
-                }
-                else if (tempProcess == '*')
-                {
-                    conclusion = firstnumdouble * secondnumdouble;
+                        label2.Text = " " + conclusion;
+                        break;
+                    case '*':
+                        conclusion = firstnumdouble * secondnumdouble;
+                        label2.Text = " " + conclusion;
+                        break;
                 }
                 screenclear = true;
                 equalsControlCounter = true;
@@ -260,6 +241,7 @@ namespace Calculator
             label2.Text = "";
             clickControlCounter = 0;
             equalsControlCounter = false;
+            dotControl = false;
         }
         private void button2_Click(object sender, EventArgs e)
         {
@@ -272,13 +254,15 @@ namespace Calculator
             label2.Text=" "+Math.Sqrt(firstnumdouble);
             screenclear = true;
             equalsControlCounter = false;
+            dotControl = true;
         }
         private void button8_Click(object sender, EventArgs e)
         {
             firstnumdouble = Convert.ToDouble(label2.Text);
-            label2.Text=" "+1/firstnumdouble;
+            label2.Text = " " + 1 / firstnumdouble;
             screenclear = true;
             equalsControlCounter = false;
+            dotControl= true; ;
         }
         private void button24_Click(object sender, EventArgs e)
         {
@@ -292,6 +276,7 @@ namespace Calculator
             label2.Text = " " + firstnumdouble * firstnumdouble;
             screenclear=true;
             equalsControlCounter = false;
+            dotControl = true;
         }
     }
 }
